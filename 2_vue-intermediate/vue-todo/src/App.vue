@@ -1,9 +1,13 @@
 <template>
   <div id="app">
     <todo-header></todo-header>
-    <todo-input></todo-input>
-    <todo-list></todo-list>
-    <todo-footer></todo-footer>
+    <todo-input v-on:addTodo="addOneTodo"></todo-input>
+    <todo-list 
+      v-bind:todoItems="todoItems" 
+      v-on:removeTodo="removeOneItem" 
+      v-on:toggleTodo="toggleOneItem"
+    ></todo-list>
+    <todo-footer v-on:clearItems="clearAllItems"></todo-footer>
   </div>
 </template>
 
@@ -20,7 +24,41 @@ export default {
     TodoInput,
     TodoList,
     TodoFooter
-  }
+  },
+  data(){
+    return{
+      todoItems:[],
+    }
+  },
+  methods:{
+    addOneTodo(todoItem){
+      const itemObj = {completed:false,item:todoItem};
+      this.todoItems.push(itemObj);
+      localStorage.setItem(todoItem, JSON.stringify(itemObj));
+    },
+    removeOneItem(todoItem,index){
+      this.todoItems.splice(index,1);
+      localStorage.removeItem(todoItem.item);
+    },
+    toggleOneItem(todoItem, index){
+      this.todoItems[index].completed = !this.todoItems[index].completed
+      localStorage.removeItem(todoItem.item);
+      localStorage.setItem(todoItem.item,JSON.stringify(todoItem));
+    },
+    clearAllItems: function() {
+      this.todoItems = [];
+      localStorage.clear();
+    }
+  },
+  created:function(){
+    if(localStorage.length<=0) return;
+    for(var i =0; i<localStorage.length;i++){
+      if(localStorage.key(i) !== 'loglevel:webpack-dev-server'){
+      const itemObj = localStorage.getItem(localStorage.key(i));
+      this.todoItems.push(JSON.parse(itemObj));
+      }
+    }
+  },
 }
 </script>
 <style>
