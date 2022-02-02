@@ -1,6 +1,6 @@
 <template>
   <div class="inputBox shadow">
-    <input type="text" v-model="newTodoItem">
+    <input type="text" ref="inputRef" v-model="newTodoItem" v-on:keyup.enter="addTodo">
     <span class="addContainer" v-on:click="addTodo">
       <i class="addBtn fas fa-plus" aria-hidden="true"></i>
     </span>
@@ -14,15 +14,22 @@ export default {
             newTodoItem:''
         }
     },
+    mounted(){
+      this.focusInput()
+    },
     methods:{
         addTodo:function(){
             if(!this.newTodoItem) return;
             const itemObj = {completed:false,item:this.newTodoItem}
             localStorage.setItem(this.newTodoItem, JSON.stringify(itemObj))
-            this.clearInput()
+            this.clearInput();
+            this.focusInput();
         },
         clearInput: function(){
             this.newTodoItem =''
+        },
+        focusInput : function(){
+          this.$refs.inputRef.focus()
         }
     }
 }
@@ -48,6 +55,7 @@ input:focus {
   display: block;
   width: 3rem;
   border-radius: 0 5px 5px 0;
+  cursor: pointer;
 }
 .addBtn {
   color: white;

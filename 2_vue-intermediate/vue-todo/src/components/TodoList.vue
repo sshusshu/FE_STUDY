@@ -27,7 +27,7 @@ export default {
   created:function(){
     if(localStorage.length>0){
       for(var i =0; i<localStorage.length;i++){
-        if(localStorage.key(i) === 'loglevel:webpack-dev-server') return;
+        if(localStorage.key(i) === 'loglevel:webpack-dev-server') continue;
         const itemObj = localStorage.getItem(localStorage.key(i))
         this.todoItems.push(JSON.parse(itemObj))
       }
@@ -36,7 +36,7 @@ export default {
   methods:{
     removeTodo(todoItem, index){
       this.todoItems.splice(index,1)
-      localStorage.removeItem(todoItem)
+      localStorage.removeItem(todoItem.item)
     },
     toggleComplete(todoItem){
       todoItem.completed = !todoItem.completed

@@ -29,5 +29,6 @@ export default {
   color: #e20303;
   /* 추가 */
   display: block;
+  cursor: pointer;
 }
 </style>
