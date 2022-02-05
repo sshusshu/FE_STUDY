@@ -18,7 +18,7 @@
 <script>
 import Modal from "./common/Modal.vue";
 export default {
-  components: { Modal },
+  components: { Modal: Modal },
   data: function () {
     return {
       newTodoItem: "",

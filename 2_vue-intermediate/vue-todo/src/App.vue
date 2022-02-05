@@ -20,10 +20,10 @@ import TodoFooter from "./components/TodoFooter.vue";
 export default {
   name: "App",
   components: {
-    TodoHeader,
-    TodoInput,
-    TodoList,
-    TodoFooter,
+    TodoHeader: TodoHeader,
+    TodoInput: TodoInput,
+    TodoList: TodoList,
+    TodoFooter: TodoFooter,
   },
   data() {
     return {
@@ -31,16 +31,16 @@ export default {
     };
   },
   methods: {
-    addOneTodo(todoItem) {
-      const itemObj = { completed: false, item: todoItem };
+    addOneTodo: function (todoItem) {
+      var itemObj = { completed: false, item: todoItem };
       this.todoItems.push(itemObj);
       localStorage.setItem(todoItem, JSON.stringify(itemObj));
     },
-    removeOneItem(todoItem, index) {
+    removeOneItem: function (todoItem, index) {
       this.todoItems.splice(index, 1);
       localStorage.removeItem(todoItem.item);
     },
-    toggleOneItem(todoItem, index) {
+    toggleOneItem: function (todoItem, index) {
       this.todoItems[index].completed = !this.todoItems[index].completed;
       localStorage.removeItem(todoItem.item);
       localStorage.setItem(todoItem.item, JSON.stringify(todoItem));
