@@ -45,14 +45,14 @@ export default {
       localStorage.removeItem(todoItem.item);
       localStorage.setItem(todoItem.item, JSON.stringify(todoItem));
     },
-    clearAllItems: function () {
+    clearAllItems() {
       this.todoItems = [];
       localStorage.clear();
     },
   },
-  created: function () {
+  created() {
     if (localStorage.length <= 0) return;
-    for (var i = 0; i < localStorage.length; i++) {
+    for (let i = 0; i < localStorage.length; i++) {
       if (localStorage.key(i) !== "loglevel:webpack-dev-server") {
         this.todoItems.push(
           JSON.parse(localStorage.getItem(localStorage.key(i)))

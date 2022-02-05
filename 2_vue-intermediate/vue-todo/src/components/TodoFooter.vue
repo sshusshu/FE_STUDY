@@ -1,19 +1,17 @@
 <template>
   <div class="clearAllContainer">
-    <span class="clearAllBtn" v-on:click="clearItems">
-      Clear All
-    </span>
+    <span class="clearAllBtn" v-on:click="clearItems"> Clear All </span>
   </div>
 </template>
 
 <script>
 export default {
-  methods:{
-    clearItems: function(){
-      this.$emit('clearItems')
-    }
-  }
-}
+  methods: {
+    clearItems() {
+      this.$emit("clearItems");
+    },
+  },
+};
 </script>
 
 <style scoped>
