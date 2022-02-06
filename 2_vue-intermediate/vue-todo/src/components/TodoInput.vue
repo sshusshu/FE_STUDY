@@ -30,7 +30,7 @@ export default {
       if (!this.newTodoItem) {
         this.showModal = !this.showModal;
       } else {
-        this.$emit("addTodo", this.newTodoItem);
+        this.$store.commit("addOneTodo", this.newTodoItem);
         this.clearInput();
       }
     },

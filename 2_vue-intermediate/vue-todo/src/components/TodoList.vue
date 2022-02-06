@@ -1,17 +1,22 @@
 <template>
   <div>
     <ul>
-      <li v-for="todoItem,index in todoItems" v-bind:key="index">
-        <i class="checkBtn fas fa-check" 
-           v-bind:class="{checkBtnCompleted:todoItem.completed}" 
-           v-on:click="toggleComplete(todoItem,index)">
+      <li
+        v-for="(todoItem, index) in this.$store.state.todoItems"
+        v-bind:key="index"
+      >
+        <i
+          class="checkBtn fas fa-check"
+          v-bind:class="{ checkBtnCompleted: todoItem.completed }"
+          v-on:click="toggleComplete(todoItem, index)"
+        >
         </i>
-        <span v-bind:class="{textCompleted:todoItem.completed}">
-          {{todoItem.item}}
+        <span v-bind:class="{ textCompleted: todoItem.completed }">
+          {{ todoItem.item }}
         </span>
-        <span class="removeBtn" v-on:click="removeTodoItem(todoItem,index)">
+        <span class="removeBtn" v-on:click="removeTodoItem(todoItem, index)">
           <i class="fas fa-trash-alt"></i>
-        </span>  
+        </span>
       </li>
     </ul>
   </div>
@@ -19,17 +24,15 @@
 
 <script>
 export default {
-  props:['todoItems'],
-
-  methods:{
-    removeTodoItem(todoItem, index){
-      this.$emit('removeTodo',todoItem,index)
+  methods: {
+    removeTodoItem(todoItem, index) {
+      this.$store.commit("removeOneItem", { todoItem, index });
     },
-    toggleComplete(todoItem,index){
-      this.$emit('toggleTodo',todoItem,index)
-    }
-  }
-}
+    toggleComplete(todoItem, index) {
+      this.$store.commit("toggleOneItem", { todoItem, index });
+    },
+  },
+};
 </script>
 
 <style scoped>
